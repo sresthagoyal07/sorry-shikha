@@ -1,0 +1,1165 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --pink: #ff719f;
+    --light-pink: #ffc1d3;
+    --white: #f8edf2;
+    --muted: #aa919d;
+    --background: #100a10;
+}
+
+body {
+    background: var(--background);
+    color: white;
+
+    font-family: "Inter", sans-serif;
+
+    overflow: hidden;
+}
+
+
+/* ==========================================
+   PARTICLES
+========================================== */
+
+#particles {
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    overflow: hidden;
+
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+
+    bottom: -30px;
+
+    opacity: 0;
+
+    animation: floatUp linear forwards;
+}
+
+
+/* ==========================================
+   PROGRESS
+========================================== */
+
+.progress {
+    position: fixed;
+
+    top: 25px;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: min(300px, 70vw);
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    color: #806b75;
+
+    font-size: 9px;
+
+    letter-spacing: 2px;
+
+    z-index: 100;
+}
+
+.progress-line {
+    height: 1px;
+
+    flex: 1;
+
+    background: rgba(255,255,255,.12);
+}
+
+#progressFill {
+    width: 10%;
+
+    height: 100%;
+
+    background: var(--pink);
+
+    transition: .6s ease;
+}
+
+
+/* ==========================================
+   SCREEN
+========================================== */
+
+.screen {
+    position: absolute;
+
+    inset: 0;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 50px 20px;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform: scale(1.04);
+
+    transition:
+        opacity .7s ease,
+        transform .7s ease;
+
+    z-index: 2;
+}
+
+.screen.active {
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: scale(1);
+}
+
+
+/* ==========================================
+   COMMON
+========================================== */
+
+.content {
+    width: min(900px, 95vw);
+
+    text-align: center;
+}
+
+.center {
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.chapter {
+    color: #927784;
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+    margin-bottom: 20px;
+}
+
+.tiny-title {
+    color: #a88b98;
+
+    font-size: 9px;
+
+    letter-spacing: 5px;
+}
+
+.next-btn {
+    margin-top: 35px;
+
+    padding: 14px 25px;
+
+    border: 1px solid rgba(255,255,255,.12);
+
+    border-radius: 50px;
+
+    background: rgba(255,255,255,.06);
+
+    color: white;
+
+    cursor: pointer;
+
+    transition: .3s;
+
+    backdrop-filter: blur(15px);
+}
+
+.next-btn:hover {
+    background: var(--pink);
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 10px 30px rgba(255,113,159,.25);
+}
+
+
+/* ==========================================
+   ENVELOPE
+========================================== */
+
+.intro-content {
+    text-align: center;
+}
+
+.envelope-container {
+    cursor: pointer;
+
+    margin-top: 45px;
+
+    transition: .4s;
+}
+
+.envelope-container:hover {
+    transform: translateY(-8px);
+}
+
+.envelope {
+    position: relative;
+
+    width: 330px;
+
+    height: 215px;
+
+    filter:
+        drop-shadow(
+            0 30px 35px rgba(0,0,0,.5)
+        );
+}
+
+.envelope-back {
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 8px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #d95683,
+            #81254d
+        );
+}
+
+.letter-paper {
+    position: absolute;
+
+    width: 285px;
+
+    height: 185px;
+
+    top: 14px;
+
+    left: 22px;
+
+    background: #fffafc;
+
+    color: #56243a;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    border-radius: 5px;
+
+    z-index: 2;
+
+    transition: 1s;
+}
+
+.letter-paper span {
+    font-size: 12px;
+}
+
+.letter-paper strong {
+    font-family: "Caveat", cursive;
+
+    font-size: 44px;
+
+    color: #8c3b5b;
+}
+
+.letter-paper small {
+    font-size: 18px;
+}
+
+.flap {
+    position: absolute;
+
+    width: 0;
+
+    height: 0;
+
+    left: 0;
+
+    top: 0;
+
+    border-left: 165px solid transparent;
+
+    border-right: 165px solid transparent;
+
+    border-top: 115px solid #ef6b98;
+
+    transform-origin: top;
+
+    transition: 1s;
+
+    z-index: 5;
+}
+
+.front {
+    position: absolute;
+
+    bottom: 0;
+
+    width: 0;
+
+    height: 0;
+
+    z-index: 4;
+}
+
+.front-left {
+    left: 0;
+
+    border-left: 165px solid #ad315f;
+
+    border-top: 108px solid transparent;
+}
+
+.front-right {
+    right: 0;
+
+    border-right: 165px solid #9c2c55;
+
+    border-top: 108px solid transparent;
+}
+
+.seal {
+    position: absolute;
+
+    width: 58px;
+
+    height: 58px;
+
+    left: 50%;
+
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: white;
+
+    color: #ed4c7f;
+
+    border-radius: 50%;
+
+    font-size: 23px;
+
+    z-index: 10;
+
+    transition: .5s;
+}
+
+.envelope-container.open .flap {
+    transform: rotateX(180deg);
+}
+
+.envelope-container.open .letter-paper {
+    transform: translateY(-125px);
+}
+
+.envelope-container.open .seal {
+    opacity: 0;
+
+    transform:
+        translate(-50%, -50%)
+        scale(0);
+}
+
+.tap-text {
+    margin-top: 35px;
+
+    color: #917987;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    animation: breathe 2s infinite;
+}
+
+
+/* ==========================================
+   SCREEN 2
+========================================== */
+
+.huge-title {
+    font-family: "Caveat", cursive;
+
+    font-size:
+        clamp(50px, 8vw, 95px);
+
+    color: #f8e9ef;
+
+    line-height: .9;
+}
+
+.subtitle {
+    margin-top: 20px;
+
+    color: var(--pink);
+
+    font-family: "Caveat", cursive;
+
+    font-size: 30px;
+}
+
+.soft-message {
+    margin-top: 35px;
+
+    color: #ad99a2;
+
+    font-size: 14px;
+
+    line-height: 1.9;
+}
+
+
+/* ==========================================
+   LETTER
+========================================== */
+
+.letter-box {
+    width: min(650px, 94vw);
+
+    max-height: 82vh;
+
+    overflow-y: auto;
+
+    padding: 45px;
+
+    border-radius: 25px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    backdrop-filter: blur(20px);
+
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.4);
+
+    text-align: left;
+}
+
+.letter-box h1 {
+    font-family: "Caveat", cursive;
+
+    font-size: 48px;
+
+    color: var(--light-pink);
+
+    margin-bottom: 25px;
+}
+
+.typewriter {
+    color: #dfd0d7;
+
+    font-size: 15px;
+
+    line-height: 2;
+
+    white-space: pre-line;
+
+    min-height: 300px;
+}
+
+.signature {
+    text-align: right;
+
+    font-family: "Caveat", cursive;
+
+    font-size: 30px;
+
+    color: var(--pink);
+
+    margin-top: 20px;
+}
+
+
+/* ==========================================
+   I KNOW
+========================================== */
+
+.section-title {
+    font-family: "Caveat", cursive;
+
+    font-size:
+        clamp(48px, 7vw, 75px);
+
+    color: #f5e6ec;
+
+    margin-bottom: 35px;
+}
+
+.know-list {
+    display: flex;
+
+    gap: 20px;
+
+    justify-content: center;
+
+    flex-wrap: wrap;
+}
+
+.know-card {
+    width: 260px;
+
+    min-height: 180px;
+
+    padding: 28px;
+
+    text-align: left;
+
+    border-radius: 20px;
+
+    background:
+        rgba(255,255,255,.055);
+
+    border:
+        1px solid rgba(255,255,255,.09);
+
+    transition: .3s;
+}
+
+.know-card:hover {
+    transform: translateY(-7px);
+
+    border-color:
+        rgba(255,113,159,.35);
+}
+
+.know-card span {
+    color: var(--pink);
+
+    font-size: 11px;
+}
+
+.know-card p {
+    margin-top: 35px;
+
+    color: #cdbcc5;
+
+    line-height: 1.7;
+
+    font-size: 14px;
+}
+
+.bottom-line {
+    margin-top: 35px;
+
+    color: var(--pink);
+
+    font-family: "Caveat", cursive;
+
+    font-size: 27px;
+}
+
+
+/* ==========================================
+   MEMORY
+========================================== */
+
+.section-subtitle {
+    color: var(--muted);
+
+    line-height: 1.7;
+
+    margin-top: -20px;
+
+    margin-bottom: 25px;
+}
+
+.memory-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+.memory {
+    padding: 10px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    border-radius: 18px;
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    transition: .3s;
+}
+
+.memory:hover {
+    transform: translateY(-6px);
+}
+
+.photo-placeholder {
+    height: 150px;
+
+    overflow: hidden;
+
+    border-radius: 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255,113,159,.12),
+            rgba(255,255,255,.04)
+        );
+}
+
+.photo-placeholder img {
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.memory p {
+    padding:
+        12px 5px 5px;
+
+    color: #cbb9c2;
+
+    font-size: 11px;
+}
+
+.photo-note {
+    color: #79636d;
+
+    font-size: 10px;
+
+    margin-top: 15px;
+}
+
+
+/* ==========================================
+   APPRECIATION
+========================================== */
+
+.appreciation-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 15px;
+
+    max-width: 650px;
+
+    margin: auto;
+}
+
+.app-card {
+    padding: 25px;
+
+    border-radius: 20px;
+
+    text-align: left;
+
+    background:
+        rgba(255,255,255,.05);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    transition: .3s;
+}
+
+.app-card:hover {
+    transform: translateY(-5px);
+
+    border-color:
+        rgba(255,113,159,.3);
+}
+
+.app-card div {
+    font-size: 25px;
+}
+
+.app-card h3 {
+    margin: 12px 0 7px;
+
+    font-size: 15px;
+}
+
+.app-card p {
+    color: #a997a0;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+}
+
+
+/* ==========================================
+   NO EXCUSES
+========================================== */
+
+.dark-screen {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,75,125,.07),
+            transparent 45%
+        );
+}
+
+.quote-mark {
+    font-family: Georgia, serif;
+
+    font-size: 80px;
+
+    color: var(--pink);
+
+    height: 55px;
+}
+
+.big-quote {
+    font-family: "Caveat", cursive;
+
+    font-size:
+        clamp(48px, 7vw, 75px);
+
+    line-height: .95;
+
+    color: #f8edf1;
+}
+
+.quote-description {
+    max-width: 500px;
+
+    margin-top: 25px;
+
+    color: #a997a0;
+
+    line-height: 1.8;
+
+    font-size: 14px;
+}
+
+.line {
+    width: 60px;
+
+    height: 1px;
+
+    background: #704657;
+
+    margin: 30px auto;
+}
+
+.quiet-text {
+    color: #c39cac;
+
+    font-family: "Caveat", cursive;
+
+    font-size: 24px;
+}
+
+
+/* ==========================================
+   PROMISES
+========================================== */
+
+.promise-list {
+    max-width: 650px;
+
+    margin: auto;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 12px;
+
+    text-align: left;
+}
+
+.promise {
+    display: flex;
+
+    gap: 18px;
+
+    padding: 22px;
+
+    background:
+        rgba(255,255,255,.05);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius: 17px;
+
+    transition: .3s;
+}
+
+.promise:hover {
+    transform: translateY(-4px);
+}
+
+.promise-number {
+    color: var(--pink);
+
+    font-size: 11px;
+}
+
+.promise h3 {
+    font-size: 14px;
+
+    margin-bottom: 7px;
+}
+
+.promise p {
+    color: #98838d;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* ==========================================
+   FINAL LETTER
+========================================== */
+
+.final-letter {
+    max-width: 650px;
+
+    text-align: center;
+}
+
+.heart-outline {
+    font-size: 65px;
+
+    color: var(--pink);
+
+    animation:
+        heartbeat 1.5s infinite;
+
+    margin-bottom: 10px;
+}
+
+.final-letter h2 {
+    font-family: "Caveat", cursive;
+
+    font-size: 55px;
+
+    color: #f7e9ee;
+
+    margin-bottom: 30px;
+}
+
+.final-letter p {
+    color: #bba7b0;
+
+    font-size: 15px;
+
+    line-height: 2;
+
+    margin: 7px 0;
+}
+
+.love-line {
+    color: #ff9eba !important;
+
+    font-family: "Caveat", cursive;
+
+    font-size: 27px !important;
+
+    margin-top: 20px !important;
+}
+
+.final-sorry {
+    margin-top: 30px;
+
+    color: var(--pink);
+
+    font-family: "Caveat", cursive;
+
+    font-size: 34px;
+}
+
+
+/* ==========================================
+   FINAL SCREEN
+========================================== */
+
+.final-screen {
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,75,125,.12),
+            transparent 45%
+        );
+}
+
+.final-content {
+    text-align: center;
+}
+
+.floating-heart {
+    font-size: 75px;
+
+    color: var(--pink);
+
+    animation:
+        heartbeat 1.4s infinite;
+
+    margin-bottom: 25px;
+}
+
+.final-content h1 {
+    font-family: "Caveat", cursive;
+
+    font-size:
+        clamp(65px, 10vw, 110px);
+
+    line-height: .8;
+
+    color: #ffeef3;
+}
+
+.final-text {
+    color: #a8959e;
+
+    font-size: 13px;
+
+    line-height: 1.9;
+
+    margin-top: 30px;
+}
+
+.final-divider {
+    width: 80px;
+
+    height: 1px;
+
+    background: #714656;
+
+    margin: 25px auto;
+}
+
+.final-signature {
+    margin-top: 35px;
+
+    font-family: "Caveat", cursive;
+
+    font-size: 30px;
+
+    color: var(--pink);
+}
+
+.restart-btn {
+    margin-top: 30px;
+
+    padding: 11px 20px;
+
+    border:
+        1px solid rgba(255,255,255,.1);
+
+    border-radius: 50px;
+
+    background: transparent;
+
+    color: #907985;
+
+    cursor: pointer;
+
+    transition: .3s;
+}
+
+.restart-btn:hover {
+    color: white;
+
+    border-color: var(--pink);
+}
+
+
+/* ==========================================
+   ANIMATIONS
+========================================== */
+
+@keyframes heartbeat {
+
+    0%, 100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.18);
+    }
+}
+
+@keyframes breathe {
+
+    0%, 100% {
+        opacity: .3;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes floatUp {
+
+    0% {
+        transform:
+            translateY(0)
+            rotate(0);
+
+        opacity: 0;
+    }
+
+    15% {
+        opacity: .7;
+    }
+
+    100% {
+        transform:
+            translateY(-110vh)
+            rotate(360deg);
+
+        opacity: 0;
+    }
+}
+
+
+/* ==========================================
+   MOBILE
+========================================== */
+
+@media(max-width:650px) {
+
+    .progress {
+        top: 15px;
+    }
+
+    .envelope {
+        width: 280px;
+
+        height: 180px;
+    }
+
+    .flap {
+        border-left-width: 140px;
+
+        border-right-width: 140px;
+
+        border-top-width: 98px;
+    }
+
+    .front-left {
+        border-left-width: 140px;
+
+        border-top-width: 90px;
+    }
+
+    .front-right {
+        border-right-width: 140px;
+
+        border-top-width: 90px;
+    }
+
+    .letter-paper {
+        width: 240px;
+
+        height: 150px;
+
+        left: 20px;
+    }
+
+    .letter-box {
+        padding: 30px 22px;
+    }
+
+    .letter-box h1 {
+        font-size: 40px;
+    }
+
+    .typewriter {
+        font-size: 13px;
+    }
+
+    .memory-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+    .photo-placeholder {
+        height: 105px;
+    }
+
+    .appreciation-grid,
+    .promise-list {
+        grid-template-columns: 1fr;
+    }
+
+    .know-card {
+        width: 100%;
+
+        min-height: auto;
+    }
+
+    .know-card p {
+        margin-top: 15px;
+    }
+
+    .section-title {
+        font-size: 50px;
+    }
+
+    .final-letter {
+        max-height: 80vh;
+
+        overflow-y: auto;
+
+        padding: 10px;
+    }
+
+    .final-letter h2 {
+        font-size: 45px;
+    }
+}
